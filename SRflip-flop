@@ -1,36 +1,41 @@
 # gates-using-python
-class SRFlipFlop:
-    def _init_(self):
-        self.Q = 0
-        self.Qbar = 1
+s = 0
+r = 0
+q = 0
+q_bar = 1
+
+while True:
+    try:
+        # Get user input
+        s = int(input("Enter S (0 or 1), or enter '2' to exit: "))
         
-    def set_inputs(self, S, R):
-        if S == 1 and R == 0:
-            self.Q = 1
-            self.Qbar = 0
-        elif S == 0 and R == 1:
-            self.Q = 0
-            self.Qbar = 1
-        elif S == 1 and R == 1:
-            self.Q = self.Q
-            self.Qbar = self.Qbar
-        elif S == 0 and R == 0:
-            self.Q = self.Q
-            self.Qbar = self.Qbar
-            
-    def get_outputs(self):
-        return self.Q, self.Qbar
-    
-flipflop = SRFlipFlop()
-
-flipflop.set_inputs(1, 0)
-print(flipflop.get_outputs()) # Output: (1, 0)
-
-flipflop.set_inputs(0, 1)
-print(flipflop.get_outputs()) # Output: (0, 1)
-
-flipflop.set_inputs(1, 1)
-print(flipflop.get_outputs()) # Output: (0, 0)
-
-flipflop.set_inputs(0, 0)
-print(flipflop.get_outputs()) # Output: (0, 1)
+        # Check for exit condition
+        if s == 2:
+            print("Exiting program...")
+            break
+        
+        r = int(input("Enter R (0 or 1): "))
+        
+        # Check for invalid input
+        if s not in [0, 1] or r not in [0, 1]:
+            raise ValueError("Invalid input: inputs must be either 0 or 1")
+        
+        # Determine output
+        if s == 1 and r == 0:
+            q = 1
+            q_bar = 0
+        elif s == 0 and r == 1:
+            q = 0
+            q_bar = 1
+        elif s == 0 and r == 0:
+            pass  # No change in output
+        else:
+            raise ValueError("Invalid input: cannot set both S and R to 1")
+        
+        # Print output
+        print("Q = ", q)
+        print("Q̅ = ", q_bar)
+        
+    except ValueError as e:
+        print(e)  # Print error message
+        continue  # Skip to next iteration of the loop
